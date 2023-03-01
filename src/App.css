@@ -1,0 +1,47 @@
+.todo_app {
+  height: 800px;
+  width: 800px;
+  margin: 3% 20% 0 25%;
+  background-color: #BC986A;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+p{
+  font-size: 32px;
+  font-weight: bold;
+  border-bottom: 2px solid;
+}
+h1 {
+  margin: 0%;
+  height: 15%;
+  background-color: #DAAD86;
+  text-align: center;
+  border-bottom: solid;
+}
+.newTask{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+input {
+  margin: 0% 4% 0% 2%;
+  background-color: #fbeec1;
+  font-size: 32px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+button {
+  background-color: #8D8747;
+  margin: 2%;
+  border-radius: 5px;
+  font-size: 25px;
+}
+ul {
+  margin: 0% 10% 10% 10%;
+  height: 100%;
+  background-color: #fbeec1;
+  border: 3px solid black;
+  justify-content: center;
+}
