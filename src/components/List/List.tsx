@@ -1,9 +1,4 @@
-import React, {useState} from "react";
-import Textbox from "../Textbox";
-import ButtonAdd from "../ButtonAdd";
-import { TaskList } from "../../App";
-
-
+import { TaskList } from "../../hooks";
 
 export interface ListProps{
   data: TaskList
