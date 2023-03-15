@@ -3,13 +3,20 @@ import { useReducer, useEffect, useRef } from "react";
 
 export enum TaskListType {
   add = "add",
-  delete = "delete"
+  delete = "delete",
+  updateDone = "updateDone",
 }
-export type TaskList = string[];
+
+export interface Task {
+  text: string;
+  done: boolean;
+}
+
+export type TaskList = Task[];
 
 export interface ActionAddTask {
   type: TaskListType.add;
-  task: string;
+  task: Task;
 }
 
 export interface ActionDeleteTask {
@@ -17,7 +24,12 @@ export interface ActionDeleteTask {
   index: number;
 }
 
-export type TaskAction = ActionAddTask | ActionDeleteTask;
+export interface ActionUpdateTaskDone {
+  type: TaskListType.updateDone;
+  index: number;
+}
+
+export type TaskAction = ActionAddTask | ActionDeleteTask | ActionUpdateTaskDone;
 
 const initialState: TaskList = [];
 
@@ -34,6 +46,15 @@ export function tasksReducer(state: TaskList, action: TaskAction): TaskList{
           taskListCopy.splice(action.index,1);
           return taskListCopy;
         }
+      case TaskListType.updateDone:
+        {
+          const taskListCopy = [...state];
+          taskListCopy[action.index] = {
+            ...taskListCopy[action.index],
+            done: !taskListCopy[action.index].done
+          }
+          return taskListCopy;
+        }
       default: 
         return state;
   }
@@ -41,17 +62,20 @@ export function tasksReducer(state: TaskList, action: TaskAction): TaskList{
 export function useTaskList(){
   const [taskList, dispatch] = useReducer(tasksReducer, checkTheTaskList());
 
-  function addTask(task: string){
-    dispatch({type: TaskListType.add, task});
+  function addTask(taskText: string){
+    dispatch({type: TaskListType.add, task:{text:taskText, done:false}});
   }
   function deleteTask(index: number){
     dispatch({type: TaskListType.delete, index});
+  }
+  function updateTaskDone(index: number){
+    dispatch({type: TaskListType.updateDone, index});
   }
   useEffectAfterMount(()=>{
     localStorage.setItem('taskList', JSON.stringify(taskList));
   }, [taskList]);
 
-  return {taskList, addTask, deleteTask};
+  return {taskList, addTask, deleteTask, updateTaskDone};
 }
 
 export function checkTheTaskList(): TaskList{
@@ -74,5 +98,4 @@ export function useEffectAfterMount(fn:()=>void, dependencies:any[]){
   },dependencies);
 }
 
-//pd. Jako wartość domyslną do useReducera wprowadzić to co jest w localStorage lub initialState 
-//pd.Zrobić button delete dzięki funkcji splice, jako argument dodać index: number
+//pd.Jak przepływają dane (checkbox, buttonDelete)
