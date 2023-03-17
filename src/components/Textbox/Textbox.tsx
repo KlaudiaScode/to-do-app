@@ -5,6 +5,6 @@ export interface TextboxProps {
 }
 export default function Textbox({value, onChangeHandler}:TextboxProps){
     return (
-        <input value={value} onChange={(e)=>onChangeHandler(e.target.value)} placeholder="Task content.." />
+        <input name="textbox" type="text" placeholder="Task content.." value={value} onChange={(e)=>onChangeHandler(e.target.value)} />
     )
 }
