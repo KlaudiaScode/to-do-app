@@ -6,7 +6,8 @@ describe ('<Textbox />', ()=>{
     it ('should render the component', ()=>{
         render(<Textbox onChangeHandler={jest.fn()} value={''}/>)
 
-        expect(screen.getByPlaceholderText('Task content..')).toBeInTheDocument()
+        expect (screen.getByRole('textbox')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('Task content..')).toBeInTheDocument();
     })
 
 })
